@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Home from './pages/Home';
 import DonorRegistration from './pages/DonorRegistration';
 import Login from './pages/Login';
+import Signup from './pages/signup';
 import AdminPanel from './pages/AdminPanel';
 import About from './pages/About';
 import Contact from './pages/Contact';
@@ -20,6 +21,7 @@ function App() {
             <main>
               <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/signup" element={<Signup/>}/>
                 <Route path="/register" element={<DonorRegistration />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/about" element={<About />} />

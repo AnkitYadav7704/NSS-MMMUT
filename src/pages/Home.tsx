@@ -55,12 +55,19 @@ function Home() {
               <span>Register as Donor</span>
             </Link>
             <button
-              onClick={() => setActiveTab('request')}
-              className="bg-red-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-red-400 transition-colors inline-flex items-center justify-center space-x-2"
-            >
-              <Heart className="h-5 w-5" />
-              <span>Request Blood</span>
-            </button>
+  onClick={() => {
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: "smooth",
+    });
+    setActiveTab('request')
+  }}
+  className="bg-red-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-red-400 transition-colors inline-flex items-center justify-center space-x-2"
+>
+  <Heart className="h-5 w-5" />
+  <span>Request Blood</span>
+</button>
+
           </div>
         </div>
       </section>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Mail, Lock, Eye, EyeOff, Heart } from 'lucide-react';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '../contexts/Authsignup';
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -12,7 +12,7 @@ function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const { login } = useAuth();
+  const { login, signInWithGoogle } = useAuth(); // ✅ added Google auth
   const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,6 +43,19 @@ function Login() {
     }
   };
 
+  const handleGoogleAuth = async () => {
+    setIsLoading(true);
+    setError('');
+    try {
+      await signInWithGoogle();
+      navigate('/');
+    } catch (error) {
+      setError('Google authentication failed.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
@@ -66,6 +79,7 @@ function Login() {
           )}
 
           <div className="space-y-4">
+            {/* Email */}
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Email Address
@@ -86,6 +100,7 @@ function Login() {
               </div>
             </div>
 
+            {/* Password */}
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Password
@@ -114,6 +129,7 @@ function Login() {
             </div>
           </div>
 
+          {/* Remember me + Forgot password */}
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <input
@@ -134,6 +150,7 @@ function Login() {
             </div>
           </div>
 
+          {/* Email/Password Submit */}
           <div>
             <button
               type="submit"
@@ -144,15 +161,36 @@ function Login() {
             </button>
           </div>
 
+          {/* OR Divider */}
+          <div className="flex items-center my-4">
+            <div className="flex-grow border-t border-gray-300 dark:border-gray-700"></div>
+            <span className="mx-2 text-gray-500 text-sm">OR</span>
+            <div className="flex-grow border-t border-gray-300 dark:border-gray-700"></div>
+          </div>
+
+          {/* Google Button */}
+          <div>
+            <button
+              type="button"
+              onClick={handleGoogleAuth}
+              disabled={isLoading}
+              className="group relative w-full flex justify-center py-3 px-4 border border-gray-300 dark:border-gray-600 text-sm font-medium rounded-lg text-gray-900 bg-white hover:bg-gray-100 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors"
+            >
+              Continue with Google
+            </button>
+          </div>
+
+          {/* Signup redirect */}
           <div className="text-center">
             <p className="text-sm text-gray-600 dark:text-gray-400">
               Don't have an account?{' '}
-              <Link to="/register" className="font-medium text-red-600 hover:text-red-500 dark:text-red-400 dark:hover:text-red-300">
-                Register as a donor
+              <Link to="/signup" className="font-medium text-red-600 hover:text-red-500 dark:text-red-400 dark:hover:text-red-300">
+                SignUp
               </Link>
             </p>
           </div>
 
+          {/* Demo credentials */}
           <div className="mt-6 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
             <p className="text-blue-700 dark:text-blue-300 text-sm font-medium mb-2">Demo Credentials:</p>
             <p className="text-blue-600 dark:text-blue-400 text-sm">
