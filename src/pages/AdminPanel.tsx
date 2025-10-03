@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Users, Heart, Calendar, Settings, BarChart3, Bell } from 'lucide-react';
 
 function AdminPanel() {
